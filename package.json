@@ -1,0 +1,20 @@
+{
+  "name": "dev-tinder-be",
+  "version": "1.0.0",
+  "description": "this is devtinder for developer ",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node src/app.js",
+    "dev" : "nodemon src/app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "Ritik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

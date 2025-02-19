@@ -1,30 +1,24 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-
-app.get("/user", (req , res)=>{
-    res.send({name: "Ritik" , lastName : "srivastava"})
-})
-app.post("/user", (req , res)=>{
-    // saving data to the database
-    res.send("Data has been saved")
-})
-app.delete("/user", (req , res)=>{
+app.get(
+  "/user",
+  (req, res, next) => {
+    console.log("Route handle");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Route handle 2");
+    next();
+  },
+  (req, res, next) => {
+    console.log("Route handle 3");
+    next();
+  },
+  (req, res, next) => {
+    res.send("here is the response");
     
-    res.send("Data deleted successfully")
-})
-app.use("/hello" , (req , res)=>{
-    res.send("hello , hello , hello")
+  }
+);
+app.listen(7777, () => {
+  console.log("server is successfully running on port 7777");
 });
-app.use("/test" , (req , res)=>{
-    res.send("hello test test test")
-});
-app.use("/namaste" , (req , res)=>{
-    res.send("Namaste dosto")
-});
-// app.use("/" , (req , res)=>{
-//     res.send("hello from the server side")
-// });
-
-app.listen(3000 , ()=>{
-    console.log("server is successfully running on port 3000");
-})

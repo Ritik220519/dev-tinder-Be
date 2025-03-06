@@ -1,41 +1,34 @@
 const express = require("express");
 const app = express();
-const {adminAuth, userAuth} = require("./middleware/authentication");
+const connectDB = require("./config/database");
+const User = require("./models/user");
+const user = require("./models/user");
 
+app.post("/signup", async (req, res) => {
+  const user = new User({
+    firstName: "Ritik",
+    lastName: "Srivastava",
+    emailId: "ritik@gmail.com",
+    gender: "male",
+    age: 23,
+    password: "Ritik@22",
+  });
+  try {
+    await user.save();
 
-
-
-app.use("/admin" , adminAuth);
-app.use("/user" , userAuth);
-
-app.get("/admin/getAllData" , (req,res)=>{
-
-    // const token = "xyzvbnm";
-    // const isAdminAuthorization = token === "xyzvbnm"
-    // if(!isAdminAuthorization){
-    //     res.status(401).send("unauthorized")
-    // }else{
-      
-        res.send("all data sent")
-    // }
-    
-
+    res.send("data added successfully");
+  } catch (error) {
+    res.status(400).send("Error saving the user : " + error.message)
+  }
 });
-app.get("/admin/deleteData" , (req,res) =>{
-    // const token = "xyzvbnm";
-    // const isAdminAuthorization = token === "xyzvbnm"
-    // if(!isAdminAuthorization){
-    //     res.status(401).send("unauthorized")
-    // }else{
-    res.send("data deleted")
-    // }
-})
-app.get("/user/getData" , (req,res) =>{
 
-    res.send("getting data")
-   
-})
-
-app.listen(7777, () => {
-  console.log("server is successfully running on port 7777");
-});
+connectDB()
+  .then(() => {
+    console.log("database connection established");
+    app.listen(7777, () => {
+      console.log("server is successfully running on port 7777");
+    });
+  })
+  .catch((err) => {
+    console.log("database connection failed !!" + err);
+  });

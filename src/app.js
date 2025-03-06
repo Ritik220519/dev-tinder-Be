@@ -3,6 +3,8 @@ const app = express();
 const {adminAuth, userAuth} = require("./middleware/authentication");
 
 
+
+
 app.use("/admin" , adminAuth);
 app.use("/user" , userAuth);
 
